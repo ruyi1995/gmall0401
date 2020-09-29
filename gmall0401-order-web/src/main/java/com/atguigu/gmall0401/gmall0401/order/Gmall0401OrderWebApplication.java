@@ -1,4 +1,4 @@
-package com.atguigu.gmall0401.gmall0401.order.web;
+package com.atguigu.gmall0401.gmall0401.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

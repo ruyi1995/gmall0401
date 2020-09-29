@@ -1,4 +1,4 @@
-package com.atguigu.gmall0401.gmall0401.order.web;
+package com.atguigu.gmall0401.gmall0401.order;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

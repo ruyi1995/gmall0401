@@ -21,9 +21,9 @@
       <module name="gmall0401-order-web" target="1.8" />
       <module name="gmall0401-parent" target="1.8" />
       <module name="gmall0401-user-manager" target="1.8" />
-      <module name="gmall0401-util-common" target="1.6" />
+      <module name="gmall0401-util-common" target="1.8" />
       <module name="gmall0401-util-service" target="1.8" />
-      <module name="gmall0401-util-web" target="1.6" />
+      <module name="gmall0401-util-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
