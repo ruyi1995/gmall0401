@@ -1,6 +1,7 @@
 package com.atguigu.gmall0401.gmall0401.order.controller;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.gmall0401.bean.UserInfo;
 import com.atguigu.gmall0401.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController 
 public class OrderController {
 
 
-
+    @Reference
     UserService userService;
 
     @GetMapping("trade")
