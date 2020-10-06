@@ -51,4 +51,13 @@ public interface ManageService {
      * @param skuInfo
      */
     void saveSkuinfo(SkuInfo skuInfo);
+
+
+    /**
+     *
+     *根据skuid查询skuInfo
+     * @param skuId
+     * @return
+     */
+    SkuInfo getSkuInfo(String skuId);
 }
