@@ -12,6 +12,7 @@ public class SpuSaleAttr  implements Serializable {
 
     @Id
     @Column
+
     String id ;
 
     @Column

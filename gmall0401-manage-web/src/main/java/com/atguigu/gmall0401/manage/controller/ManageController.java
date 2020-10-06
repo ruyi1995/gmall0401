@@ -95,4 +95,6 @@ public class ManageController {
         return manageService.getSpuList(catalog3Id);
     }
 
+    //http://localhost:8082/spuImageList?spuId=5
+
 }

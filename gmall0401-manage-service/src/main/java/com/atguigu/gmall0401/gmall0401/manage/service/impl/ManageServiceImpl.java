@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.persistence.Id;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,6 +50,18 @@ public class ManageServiceImpl implements ManageService {
     @Autowired
     SpuSaleAttrValueMapper spuSaleAttrValueMapper;
 
+    @Autowired
+    SkuAttrValueMapper skuAttrValueMapper;
+
+    @Autowired
+    SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    @Autowired
+    SkuInfoMapper skuInfoMapper;
+
+    @Autowired
+    SkuImageMapper skuImageMapper;
+
     @Override
 
     public List<BaseCatalog1> getCatalog1() {
@@ -73,11 +86,15 @@ public class ManageServiceImpl implements ManageService {
 
     @Override
     public List<BaseAttrInfo> getAttrList(String catalog3Id) {
-        Example example = new Example(BaseAttrInfo.class);
-        example.createCriteria().andEqualTo("catalog3Id", catalog3Id);
-        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.selectByExample(example);
+//        Example example = new Example(BaseAttrInfo.class);
+//        example.createCriteria().andEqualTo("catalog3Id", catalog3Id);
+//        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.selectByExample(example);
+//
+//
 
-        return baseAttrInfoList;
+
+        return baseAttrInfoMapper.getBaseAttrInfoListByCatalog3Id(catalog3Id);
+
     }
 
     @Override
@@ -155,7 +172,8 @@ public class ManageServiceImpl implements ManageService {
             //保存销售属性值
             List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
             for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValueList) {
-                spuSaleAttrValue.setSaleAttrId(spuSaleAttr.getId());
+
+                spuSaleAttrValue.setSpuId(spuInfo.getId());
                 spuSaleAttrValueMapper.insertSelective(spuSaleAttrValue);
             }
 
@@ -174,4 +192,54 @@ public class ManageServiceImpl implements ManageService {
 
 
     }
+
+    @Override
+    public List<SpuImage> getspuImageList(SpuImage spuImage) {
+
+
+        List<SpuImage> spuImageList = spuImageMapper.select(spuImage);
+        return spuImageList;
+    }
+
+    @Override
+    public List<SpuSaleAttr> setSpuSaleAttrList(String spuId) {
+
+        List<SpuSaleAttr> spuSaleAttrList = spuSaleAttrMapper.selectSpuSaleAttrList(spuId);
+
+
+        return spuSaleAttrList;
+    }
+
+    @Override
+    @Transactional
+    public void saveSkuinfo(SkuInfo skuInfo) {
+        //1.skuinfo
+        skuInfoMapper.insertSelective(skuInfo);
+        //2.skuimage
+        List<SkuImage> skuImageList = skuInfo.getSkuImageList();
+        if (skuImageList != null && skuImageList.size() > 0) {
+
+            for (SkuImage skuImage : skuImageList) {
+                skuImage.setSkuId(skuInfo.getId());
+                skuImageMapper.insertSelective(skuImage);
+            }
+        }
+        //3.skusaleattrvalue
+        List<SkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+        if (skuSaleAttrValueList != null && skuSaleAttrValueList.size() >0){
+            for (SkuSaleAttrValue skuSaleAttrValue : skuSaleAttrValueList) {
+                skuSaleAttrValue.setSkuId(skuInfo.getId());
+                skuSaleAttrValueMapper.insertSelective(skuSaleAttrValue);
+            }
+        }
+        //4.skuattrvalue
+        List<SkuAttrValue> skuAttrValueList = skuInfo.getSkuAttrValueList();
+        if (skuAttrValueList!=null && skuAttrValueList.size()>0){
+            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
+                skuAttrValue.setSkuId(skuInfo.getId());
+                skuAttrValueMapper.insertSelective(skuAttrValue);
+            }
+        }
+    }
+
 }
