@@ -11,4 +11,6 @@ public interface SpuSaleAttrMapper extends Mapper<SpuSaleAttr>{
     //需要使用mapper.xml
     //SpuSaleAttrMapper.xml 写在resources目录下
     List<SpuSaleAttr> selectSpuSaleAttrList(String spuId);
+
+     List<SpuSaleAttr>  selectSpuSaleAttrListCheckBySku(String skuId,String spuId);
 }

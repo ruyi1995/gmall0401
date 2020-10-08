@@ -60,4 +60,19 @@ public interface ManageService {
      * @return
      */
     SkuInfo getSkuInfo(String skuId);
+
+    /**
+     * 根据传入的skuinfo查询spu销售属性值
+     *
+     * @param skuInfo
+     * @return
+     */
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(SkuInfo skuInfo);
+
+    /**
+     * 根据spuid查询销售属性值
+     * @param spuId
+     * @return
+     */
+    List<SkuSaleAttrValue> getSkuSaleAttrValueListBySpu(String spuId);
 }
